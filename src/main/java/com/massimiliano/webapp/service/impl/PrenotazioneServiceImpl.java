@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-// devono avere anche l'annotazione di Autowired
+ /*Le implementazioni nello strato di servizio sono le medesime di quelle DaoImplement utilizzate nelle servlet
+    e si costruiscono allo stesso modo*/
 
+// ma devono avere l'annotazione service e transactional. In caso constrario non funzioneranno
 @Service("prenotazioneService")
 @Transactional
 public class PrenotazioneServiceImpl implements PrenotazioneService {
@@ -42,8 +44,8 @@ public class PrenotazioneServiceImpl implements PrenotazioneService {
     }
 
     @Override
-    public List<Prenotazione> trovaPrenotazioniPerId(int id) {
-        return prenotazioneDaoRepository.trovaPrenotazioniPerId(id);
+    public List<Prenotazione> trovaPrenotazioniPerIdUtente(int idUtente) {
+        return prenotazioneDaoRepository.trovaPrenotazioniPerIdUtente(idUtente);
     }
 
     @Override

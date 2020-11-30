@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+ /*Le implementazioni nello strato di servizio sono le medesime di quelle DaoImplement utilizzate nelle servlet
+    e si costruiscono allo stesso modo*/
+
+// ma devono avere l'annotazione service e transactional. In caso constrario non funzioneranno
 
 @Service("veicoloService")
 @Transactional

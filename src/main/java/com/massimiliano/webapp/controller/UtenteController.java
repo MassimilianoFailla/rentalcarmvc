@@ -2,111 +2,180 @@ package com.massimiliano.webapp.controller;
 
 import com.massimiliano.webapp.entities.Utente;
 import com.massimiliano.webapp.service.UtenteService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
-// questa sarà la classe di gestione dell'utente, dove potremo effettuare tutte le operazioni
-// che riguardano i vari utenti
-
+// gestione degli utenti
 
 @Controller
 @RequestMapping("/utente")
 public class UtenteController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UtenteController.class);
-
     @Autowired
     private UtenteService utenteService;
 
-    // creo la lista degli utenti
-    List<Utente> mainRecordSet;
-
-    // per l'ordinamento
-    private String OrderType = "DESC";
-    private int OrderBy = 0;
-    private boolean IsClienti = true;
-    private boolean IsSaved = false;
-
-
-    private void GetAllUtenti() {
-
-        mainRecordSet = utenteService.selezionaUtenti();
-    }
-
-    // inserimento utenti
+    //    -------------------------------- Get Utente ------------------------------------------------------------------
 
     @ModelAttribute("Utente")
     public Utente getUtente() {
         return new Utente();
     }
 
+    //    --------------------------------  Get Lista Utenti -----------------------------------------------------------
 
-    @GetMapping(value = "/inserisci")
-    public String InsUtente(Model model) {
-//        int LastCodFid = Integer.parseInt(utenteService.selezionaUtenti());
-//
-//        cliente.setCodFidelity(Integer.toString(LastCodFid + 1));
+    private List<Utente> getListaUtenti() {
 
-        model.addAttribute("Titolo", "Inserimento Nuovo Utente");
-        model.addAttribute("Utente", getUtente());
-        model.addAttribute("edit", false);
-        model.addAttribute("saved", false);
+        List<Utente> listaUtenti = utenteService.selezionaUtenti();
 
-        return "insUtente";
+        return listaUtenti;
     }
 
-    @PostMapping(value = "/inserisci")
-    public String GestInsCliente(@Valid @ModelAttribute("Utente") Utente utente, BindingResult result, Model model,
-                                 RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        //Date date = new Date();
+    //    -------------------------------- Visualizza Lista Utente Nella Pagina Principale  ----------------------------
+
+    @GetMapping("/visualizzaUtenti")
+    public ModelAndView visUtenti(ModelAndView model) {
+
+        model.addObject("Titolo", "Elenco utenti registrati");
+        model.addObject("listaUtenti", getListaUtenti());
+
+        model.setViewName("visualizzaUtenti");
+
+        return model;
+    }
+
+    //    -------------------------------- Registrazione Utente --------------------------------------------------------
+
+    @GetMapping("/registrazione")
+    public String InsUtente(Model model) {
+
+        Utente utente = new Utente();
+
+        model.addAttribute("Titolo", "Inserimento nuovo utente");
+        model.addAttribute("Utente", utente);
+        model.addAttribute("Utente", getUtente());
+
+        return "inserisciUtente";
+    }
+
+
+    @PostMapping("/registrazione")
+    public String GestInsUtente(@Valid @ModelAttribute("Utente") Utente utente, BindingResult result) {
 
         if (result.hasErrors()) {
-            return "insUtente";
-        }
-
-//        utente.setDataCreaz(date);
-
-        // parametri che passo alla post
-        String utenteId = request.getParameter("id");
-        String nome = request.getParameter("nome");
-        String cognome = request.getParameter("cognome");
-        String dataNascita = request.getParameter("dataNascita");
-        String codiceFiscale = request.getParameter("codiceFiscale");
-        String email = request.getParameter("email");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String role = request.getParameter("role");
-
-        utente = new Utente();
-
-        if (utenteId == null || utenteId == "")
-            utenteService.Salva(utente);
-        else {
-            int id = Integer.parseInt(utenteId);
-            utente.setId(id);
-            utenteService.Aggiorna(utente);
+            return "inserisciUtente";
         }
 
         utenteService.Salva(utente);
 
-        redirectAttributes.addFlashAttribute("saved", true);
-
-        return "redirect:/";
-//                ù+ cliente.getCodFidelity().trim();
+        return "redirect:/homeSuperUser";
     }
 
+    //    -------------------------------- Modifica Utente --------------------------------------------------------
+
+
+    @RequestMapping(value = "/modifica/{utente.id}", method = RequestMethod.GET)
+    public String modUtente(@PathVariable("id") int idUtente, ModelAndView model) {
+
+        Utente utente = utenteService.selezionaById(idUtente);
+
+        model.addObject("Titolo", "Modifica Utente");
+        model.addObject("Utente", getUtente());
+        model.addObject("edit", true);
+
+        utenteService.Aggiorna(utente);
+
+        return "redirect:/homeSuperUser";
+    }
+
+    @RequestMapping(value = "/modifica/{utente.id}", method = RequestMethod.POST)
+    public String GestModUtente(@Valid @ModelAttribute("Utente") Utente utente, BindingResult result,
+                                ModelAndView model) {
+
+        if (utente.getId() != 0) {
+            if (result.hasErrors()) {
+
+                model.addObject("Titolo", "Modifica Utente");
+                model.addObject("edit", true);
+
+                return "redirect:/homeSuperUser";
+            }
+            utenteService.Aggiorna(utente);
+        }
+        return "redirect:/homeSuperUser";
+    }
+
+
+//    @RequestMapping(value = "/modifica/{utente.id}", method = RequestMethod.GET)
+//    public String modUtente(ModelAndView model, @PathVariable("id") int idUtente){
+//
+//        Utente utente = utenteService.selezionaById(idUtente);
+//
+//        model.addObject("Titolo", "Modifica utente");
+//        model.addObject("Utente", utente);
+//        model.addObject("edit", true);
+//
+//        utenteService.Aggiorna(utente);
+//
+//        return "inserisciUtente";
+//     }
+//
+//     @RequestMapping(value = "/modifica/{utente.id}", method = RequestMethod.POST)
+//    public String GestModUtente(@Valid @ModelAttribute("Utente") Utente utente, BindingResult result,
+//                                ModelAndView model, @PathVariable("id") int idUtente){
+//
+//        if(utente.getId() != 0) {
+//            if (result.hasErrors()) {
+//
+//                model.addObject("Titolo", "Modifica Utente");
+//                model.addObject("Utente", utenteService.selezionaById(idUtente));
+//                model.addObject("edit", true);
+//
+//                return "inserisciUtente";
+//            }
+//
+//            utenteService.Aggiorna(utente);
+//        }
+//         return "redirect:/homeSuperUser";
+//    }
+
+    //    -------------------------------- Cancellazione Utente --------------------------------------------------------
+
+    @RequestMapping(value = "/elimina", method = RequestMethod.GET)
+    public String eliUtente(@PathVariable("id") int idUtente, ModelAndView model) {
+
+        Utente utente = utenteService.selezionaById(idUtente);
+
+        model.addObject("Titolo", "EliminaUtente");
+        model.addObject("Utente", getUtente());
+        model.addObject("edit", true);
+
+        utenteService.Elimina(utente);
+
+        return "redirect:/homeSuperUser";
+    }
+
+    @RequestMapping(value = "/elimina", method = RequestMethod.POST)
+    public String GestEliUtente(@Valid @ModelAttribute("Utente") Utente utente, BindingResult result,
+                                ModelAndView model) {
+
+        if (utente.getId() != 0) {
+            if (result.hasErrors()) {
+
+                model.addObject("Titolo", "EliminaUtente");
+                model.addObject("edit", true);
+
+                return "redirect:/homeSuperUser";
+            }
+            utenteService.Elimina(utente);
+        }
+        return "redirect:/homeSuperUser";
+    }
 
 }

@@ -2,7 +2,6 @@ package com.massimiliano.webapp.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,7 +20,7 @@ public class Utente implements Serializable {
     private String cognome;
 
     @Column(name = "dataNascita")
-    private Date dataNascita;
+    private String dataNascita;
 
     @Column(name = "codiceFiscale")
     private String codiceFiscale;
@@ -49,7 +48,7 @@ public class Utente implements Serializable {
 
     }
 
-    public Utente(String nome, String cognome, Date dataNascita, String codiceFiscale, String email,
+    public Utente(String nome, String cognome, String dataNascita, String codiceFiscale, String email,
                   String username, String password, String role) {
         this.nome = nome;
         this.cognome = cognome;
@@ -122,11 +121,11 @@ public class Utente implements Serializable {
         this.password = password;
     }
 
-    public Date getDataNascita() {
+    public String getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(Date dataNascita) {
+    public void setDataNascita(String dataNascita) {
         this.dataNascita = dataNascita;
     }
 
@@ -155,4 +154,5 @@ public class Utente implements Serializable {
                 + codiceFiscale + " - Email: " + email + " - Username: " + username
                 + " - Password: " + password + " - Tipologia Account: " + role + ";";
     }
+
 }

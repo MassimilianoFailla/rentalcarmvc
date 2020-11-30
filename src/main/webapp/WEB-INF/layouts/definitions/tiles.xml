@@ -1,32 +1,90 @@
-<?xml version="1.0" encoding="UTF-8" ?> 
+<?xml version="1.0" encoding="UTF-8" ?>
 
-<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
-"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
 
-	<definition name="baseLayout" template="/WEB-INF/layouts/template/base.jsp">
-		<put-attribute name="titolo" value="" />
-		<put-attribute name="content" value="" />
-		<put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp" />
-	</definition>
-	
-	<definition name="index" extends="baseLayout">
-		<put-attribute name="titolo"  value="Benvenuti in RentalCar" />
-		<put-attribute name="content" value="/WEB-INF/view/welcome.jsp" />  
-	</definition>
+    <!--Base e Piè pagina WebApp-->
+    <definition name="baseLayout" template="/WEB-INF/layouts/template/base.jsp">
+        <put-attribute name="titolo" value=""/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp"/>
+    </definition>
 
-	<!--<definition name="clienti" extends="baseLayout">-->
-		<!--<put-attribute name="titolo"  value="Ricerca Clienti" />-->
-		<!--<put-attribute name="content" value="/WEB-INF/view/utente.jsp" />-->
-	<!--</definition>-->
-	
-	<definition name="insCliente" extends="baseLayout">
-		<put-attribute name="titolo"  value="Dati Cliente" />
-		<put-attribute name="content" value="/WEB-INF/view/insUtente.jsp" />
-	</definition>
-	
+    <!--Base e Piè pagina WebApp SuperUser-->
+    <definition name="baseLayoutSU" template="/WEB-INF/layouts/template/baseSuperUser.jsp">
+        <put-attribute name="titolo" value=""/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp"/>
+    </definition>
 
-	
+    <!--Base e Piè pagina WebApp CustomerUser-->
+    <definition name="baseLayoutCU" template="/WEB-INF/layouts/template/baseCustomerUser.jsp">
+        <put-attribute name="titolo" value=""/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp"/>
+    </definition>
+
+    <!--Pagina Iniziale WebApp-->
+    <definition name="index" extends="baseLayout">
+        <put-attribute name="titolo" value="Benvenuti in RentalCar"/>
+        <put-attribute name="content" value="/WEB-INF/view/welcome.jsp"/>
+    </definition>
+
+    <!--Pagina Iniziale SuperUser-->
+    <definition name="indexSuperUser" extends="baseLayoutSU">
+        <put-attribute name="titolo" value=""/>
+        <put-attribute name="content" value="/WEB-INF/view/welcomeSuperUser.jsp"/>
+    </definition>
+
+    <!--Pagina Iniziale CustomerUser-->
+    <definition name="indexCustomerUser" extends="baseLayoutCU">
+        <put-attribute name="titolo" value=""/>
+        <put-attribute name="content" value="/WEB-INF/view/welcomeCustomerUser.jsp"/>
+    </definition>
+
+    <!--Login Utenti-->
+    <definition name="login" extends="baseLayout">
+    <put-attribute name="titolo"  value="Login" />
+    <put-attribute name="content" value="/WEB-INF/view/loginUtente.jsp" />
+    </definition>
+
+    <!--Visualizzazione utenti-->
+    <definition name="visualizzaUtenti" extends="baseLayout">
+        <put-attribute name="titolo"  value="Visualizza Utenti" />
+        <put-attribute name="content" value="/WEB-INF/view/visualizzaUtenti.jsp" />
+    </definition>
+
+    <!--Visualizzazione veicoli-->
+    <definition name="visualizzaVeicoli" extends="baseLayout">
+        <put-attribute name="titolo"  value="Visualizza Veicoli" />
+        <put-attribute name="content" value="/WEB-INF/view/visualizzaVeicoli.jsp" />
+    </definition>
+
+    <!--Visualizzazione veicoli-->
+    <definition name="visualizzaPrenotazioni" extends="baseLayout">
+        <put-attribute name="titolo"  value="Visualizza Prenotazioni" />
+        <put-attribute name="content" value="/WEB-INF/view/visualizzaPrenotazione.jsp" />
+    </definition>
+
+    <!--Inserimento Utenti-->
+    <definition name="inserisciUtente" extends="baseLayout">
+        <put-attribute name="titolo" value="Dati Utente"/>
+        <put-attribute name="content" value="/WEB-INF/view/inserisciUtente.jsp"/>
+    </definition>
+
+    <!--inserimento Veicoli-->
+    <definition name="inserisciVeicolo" extends="baseLayout">
+        <put-attribute name="titolo" value="Dati Veicolo"/>
+        <put-attribute name="content" value="/WEB-INF/view/inserisciVeicolo.jsp"/>
+    </definition>
+
+    <!--inserimento Prenotazioni-->
+    <definition name="inserisciPrenotazione" extends="baseLayout">
+        <put-attribute name="titolo" value="Dati Prenotazione"/>
+        <put-attribute name="content" value="/WEB-INF/view/inserisciPrenotazione.jsp"/>
+    </definition>
+
 
 </tiles-definitions>

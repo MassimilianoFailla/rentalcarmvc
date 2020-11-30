@@ -12,9 +12,9 @@ public interface PrenotazioneService {
 
     void Elimina(Prenotazione prenotazione);
 
-    public Prenotazione trovaPrenotazionePerId(int id);
+    Prenotazione trovaPrenotazionePerId(int id);
 
-    public List<Prenotazione> trovaPrenotazioniPerId(int id);
+    List<Prenotazione> trovaPrenotazioniPerIdUtente(int idUtente);
 
     List<Prenotazione> selezionaPrenotazioni();
 }

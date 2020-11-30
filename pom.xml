@@ -6,13 +6,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.4.0</version>
-        <relativePath/>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.massimiliano.webapp</groupId>
-    <artifactId>springmvcrentalcar</artifactId>
+    <artifactId>rentalcarspringmvc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>springmvcrentalcar</name>
+    <name>rentalcarspringmvc</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -142,6 +142,12 @@
 
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.0</version>
+        </dependency>
+
         <!-- Estrazione Formato Excel -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -254,3 +260,4 @@
     </build>
 
 </project>
+

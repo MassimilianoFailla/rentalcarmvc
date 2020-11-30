@@ -22,11 +22,18 @@ import java.util.Properties;
 @ComponentScan({"com.massimiliano.webapp.config"})
 @PropertySource("classpath:application.properties")
 public class HibernateConfig {
+
+
+    public HibernateConfig() {
+
+    }
+
     @Autowired
     private Environment env;
 
     @Autowired
     private DataSource dataSource;
+
 
     @Bean
     LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -46,6 +53,7 @@ public class HibernateConfig {
 
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
+
         HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
 
         hibernateJpaVendorAdapter.setShowSql(true);
@@ -63,15 +71,7 @@ public class HibernateConfig {
         jpaProperties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
         jpaProperties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
         jpaProperties.put("hibernate.format_sql", env.getRequiredProperty("hibernate.format_sql"));
-//        jpaProperties.put("hibernate.hbm2dll.auto", env.getRequiredProperty("hibernate.hbm2dll.auto"));
-
-
-//        // Setting C3P0 properties
-//        jpaProperties.put(C3P0_MIN_SIZE, env.getProperty("hibernate.c3p0.min_size"));
-//        jpaProperties.put(C3P0_MAX_SIZE, env.getProperty("hibernate.c3p0.max_size"));
-//        jpaProperties.put(C3P0_ACQUIRE_INCREMENT, env.getProperty("hibernate.c3p0.acquire_increment"));
-//        jpaProperties.put(C3P0_TIMEOUT, env.getProperty("hibernate.c3p0.timeout"));
-//        jpaProperties.put(C3P0_MAX_STATEMENTS, env.getProperty("hibernate.c3p0.max_statements"));
+        jpaProperties.put("hibernate.hbm2ddl.auto", env.getRequiredProperty("hibernate.hbm2ddl.auto"));
 
         return jpaProperties;
     }
@@ -80,9 +80,10 @@ public class HibernateConfig {
     public JpaTransactionManager transactionManager() {
 
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return transactionManager;
     }
+
 }
+

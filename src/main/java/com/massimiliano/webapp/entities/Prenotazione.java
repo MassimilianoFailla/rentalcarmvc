@@ -2,7 +2,6 @@ package com.massimiliano.webapp.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "Prenotazione")
@@ -14,10 +13,10 @@ public class Prenotazione implements Serializable {
     private int id;
 
     @Column(name = "inizioPrenotazione")
-    private Date inizioPrenotazione;
+    private String inizioPrenotazione;
 
     @Column(name = "finePrenotazione")
-    private Date finePrenotazione;
+    private String finePrenotazione;
 
     @ManyToOne
     @JoinColumn(name = "idUtente", referencedColumnName = "id")
@@ -31,7 +30,7 @@ public class Prenotazione implements Serializable {
 
     }
 
-    public Prenotazione(Date inizioPrenotazione, Date finePrenotazione, Utente utente, Veicolo veicolo) {
+    public Prenotazione(String inizioPrenotazione, String finePrenotazione, Utente utente, Veicolo veicolo) {
         this.inizioPrenotazione = inizioPrenotazione;
         this.finePrenotazione = finePrenotazione;
         this.utente = utente;
@@ -48,22 +47,22 @@ public class Prenotazione implements Serializable {
         this.id = id;
     }
 
-    public void setInizioPrenotazione(Date inizioPrenotazione) {
+    public void setInizioPrenotazione(String inizioPrenotazione) {
 
         this.inizioPrenotazione = inizioPrenotazione;
     }
 
-    public void setFinePrenotazione(Date finePrenotazione) {
+    public void setFinePrenotazione(String finePrenotazione) {
 
         this.finePrenotazione = finePrenotazione;
     }
 
-    public Date getInizioPrenotazione() {
+    public String getInizioPrenotazione() {
 
         return inizioPrenotazione;
     }
 
-    public Date getFinePrenotazione() {
+    public String getFinePrenotazione() {
 
         return finePrenotazione;
     }

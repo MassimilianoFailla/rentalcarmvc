@@ -9,11 +9,9 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-//JPQL https://docs.oracle.com/javaee/7/tutorial/persistence-querylanguage.htm
-//CRITERIA API https://docs.oracle.com/javaee/7/tutorial/persistence-criteria.htm
-
 public abstract class AbstractDao<I extends Serializable, Id extends Serializable>
         implements GenericDao<I, Id> {
+
     @PersistenceContext
     protected EntityManager entityManager;
 
@@ -74,7 +72,6 @@ public abstract class AbstractDao<I extends Serializable, Id extends Serializabl
 
     @Override
     public void EliminaById(Id id) {
-
 
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         CriteriaDelete<I> query = builder.createCriteriaDelete(this.entityClass);

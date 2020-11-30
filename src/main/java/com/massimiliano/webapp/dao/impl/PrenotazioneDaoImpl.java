@@ -51,27 +51,21 @@ public class PrenotazioneDaoImpl extends AbstractDao<Prenotazione, Integer> impl
         return prenotazione;
     }
 
+    // per questa particolare query utilizzo l'JSPQL per trovare l'id dell'utente in prenotazioni
     @Override
-    public List<Prenotazione> trovaPrenotazioniPerId(int id) {
+    public List<Prenotazione> trovaPrenotazioniPerIdUtente(int idUtente) {
 
         List<Prenotazione> listaPrenotazioni;
 
-        // utilizzo il criteria Builders per le query
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Prenotazione> queryDef = cb.createQuery(Prenotazione.class);
+        String JPQL = "SELECT a FROM Prenotazione a WHERE a.utente.id = :idUtente";
 
-        // utilizzo il Root
-        Root<Prenotazione> recordSet = queryDef.from(Prenotazione.class);
-
-        // equivalente di SELECT u FROM PRENOTAZIONE.u WHERE u.id : id ORDER BY ...
-        queryDef.select(recordSet).where(cb.equal(recordSet.get("id"), id));
-
-        listaPrenotazioni = entityManager.createQuery(queryDef).getResultList();
-
-        entityManager.clear();
+        listaPrenotazioni = entityManager.createQuery(JPQL)
+                .setParameter("idUtente", idUtente)
+                .getResultList();
 
         return listaPrenotazioni;
     }
+
 
     @Override
     public List<Prenotazione> selezionaPrenotazioni() {

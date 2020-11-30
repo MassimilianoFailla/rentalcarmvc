@@ -8,14 +8,10 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -23,7 +19,6 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import org.springframework.web.servlet.view.xml.MarshallingView;
 import org.springframework.web.util.UrlPathHelper;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -53,7 +48,7 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/img/**").addResourceLocations("/static/images/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/static/images/");
     }
 
     @Override
@@ -102,33 +97,6 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 
         return xmlView;
     }
-
-
-    @Bean
-    public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
-        ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
-        resolver.setContentNegotiationManager(manager);
-
-        ArrayList<View> views = new ArrayList<>();
-        views.add(jsonView()); // Formato JSON
-        views.add(xmlView()); // Formato XML
-
-        resolver.setDefaultViews(views);
-
-        return resolver;
-    }
-	
-	/* Alternetiva del MessageSource
-	@Bean
-    public MessageSource messageSource() 
-	{
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
-    */
-
 
     @Bean
     public MessageSource messageSource() {

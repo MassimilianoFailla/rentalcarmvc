@@ -30,10 +30,15 @@ public class UtenteServiceImpl implements UtenteService {
     }
 
     @Override
-    public Utente selezionaById(String id) {
+    public Utente selezionaById(int id) {
         Utente utente = utenteDaoRepository.selezionaById(id);
 
         return utente;
+    }
+
+    @Override
+    public List<Utente> selezionaUtentiByRole(String role) {
+        return utenteDaoRepository.selezionaUtentiByRole(role);
     }
 
     @Override
@@ -53,8 +58,8 @@ public class UtenteServiceImpl implements UtenteService {
 
 
     @Override
-    public boolean validate(String username, String password) {
-        return false;
+    public Utente validate(String username, String password) {
+        return utenteDaoRepository.validate(username, password);
     }
 
     @Override

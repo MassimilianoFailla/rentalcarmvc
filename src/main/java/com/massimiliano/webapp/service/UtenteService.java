@@ -9,7 +9,9 @@ public interface UtenteService {
 
     List<Utente> selezionaUtenti();
 
-    Utente selezionaById(String id);
+    Utente selezionaById(int id);
+
+    List<Utente> selezionaUtentiByRole(String role);
 
     void Salva(Utente utente);
 
@@ -17,18 +19,18 @@ public interface UtenteService {
 
     void Elimina(Utente utente);
 
-    boolean validate(String username, String password);
+    Utente validate(String username, String password);
 
 
     // metodi da implementare per il filtraggio --------
 
-    public List<Utente> trovaPerNome(String nome);
+     List<Utente> trovaPerNome(String nome);
 
-    public List<Utente> trovaPerCognome(String cognome);
+     List<Utente> trovaPerCognome(String cognome);
 
-    public Utente trovaPerEmail(String email);
+     Utente trovaPerEmail(String email);
 
-    public List<Utente> trovaPerAnnoNascita(Date annoNascita);
+     List<Utente> trovaPerAnnoNascita(Date annoNascita);
 
     // -------------------------------------------------
 

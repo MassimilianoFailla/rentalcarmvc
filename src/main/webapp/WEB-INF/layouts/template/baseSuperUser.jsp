@@ -31,33 +31,31 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 
-        <a class="navbar-brand" href="<spring:url value="/webstore/lastart"/>">Rental Car</a>
+        <a class="navbar-brand" href="<spring:url value="/webstore/lastart"/>">Rental Car - Super User</a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="<c:url value="/home"/>">
+                <a class="nav-link" href="<spring:url value="/homeSuperUser" /> ">
                     <span class="oi oi-home" title="home" aria-hidden="true"></span>
                     Home
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <%--<a class="nav-link" href="<spring:url value="/veicoli/" /> ">--%>
-                <a class="nav-link" href=#>
+                    <a class="nav-link" href="<spring:url value="/veicolo/visualizzaVeicoli" /> ">
                     <span class="oi oi-credit-card" title="veicolo" aria-hidden="true"></span>
-                    Veicoli
+                    Gestici Veicoli
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href=#>
+                <a class="nav-link" href="<spring:url value="/prenotazione/visualizzaPrenotazioni" /> ">
                     <span class="oi oi-bullhorn" title="bullhorn" aria-hidden="true"></span>
-                    Prenotazioni
+                    Gestisci Prenotazioni
                 </a>
             </li>
             <li class="nav-item">
-                <%--<a class="nav-link" href="<spring:url value="/visualizzaUtenti" /> ">--%>
-                <a class="nav-link" href=#>
+                    <a class="nav-link" href="<spring:url value="/utente/visualizzaUtenti" /> ">
                     <span class="oi oi-people" title="utente" aria-hidden="true"></span>
-                    Utenti
+                    Gestisci Utenti
                 </a>
             </li>
         </ul>

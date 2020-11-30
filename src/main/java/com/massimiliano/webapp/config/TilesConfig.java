@@ -6,8 +6,12 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 
 @Configuration
 public class TilesConfig {
+
+
     @Bean
     public TilesConfigurer tilesConfigurer() {
+
+
         TilesConfigurer tilesConfigurer = new TilesConfigurer();
 
         tilesConfigurer.setDefinitions("/WEB-INF/layouts/definitions/tiles.xml");

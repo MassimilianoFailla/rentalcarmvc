@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 @ComponentScan({"com.massimiliano.webapp.config"})
 @PropertySource(value = {"classpath:application.properties"})
 public class JdbcConfig {
+
     @Autowired
     private Environment environment;
 
@@ -33,6 +34,7 @@ public class JdbcConfig {
 
     @Bean(name = "dataSource")
     public DataSource dataSource() {
+
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
@@ -42,14 +44,14 @@ public class JdbcConfig {
 
         return dataSource;
     }
-	
+
 	/*
 	@Bean
 	public DataSourceTransactionManager transactionManager()
 	{
 		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
 		transactionManager.setDataSource(dataSource());
-		
+
 		return transactionManager;
 	}
 	*/

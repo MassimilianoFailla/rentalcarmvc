@@ -43,7 +43,7 @@ public class VeicoloDaoImpl extends AbstractDao<Veicolo, Integer> implements Vei
         // utilizzo il Root
         Root<Veicolo> recordSet = queryDef.from(Veicolo.class);
 
-        // equivalente di SELECT u FROM PRENOTAZIONE.u WHERE u.id : id ORDER BY ...
+        // equivalente di SELECT u FROM VEICOLO.u WHERE u.id : id ORDER BY ...
         queryDef.select(recordSet).where(cb.equal(recordSet.get("id"), id));
 
         veicolo = entityManager.createQuery(queryDef).getSingleResult();
@@ -64,7 +64,7 @@ public class VeicoloDaoImpl extends AbstractDao<Veicolo, Integer> implements Vei
         // utilizzo il Root
         Root<Veicolo> recordSet = queryDef.from(Veicolo.class);
 
-        // equivalente di SELECT u FROM PRENOTAZIONE.u WHERE u.id : id ORDER BY ...
+        // equivalente di SELECT u FROM VEICOLO.u WHERE u.targa : targa ORDER BY ...
         queryDef.select(recordSet).where(cb.equal(recordSet.get("targa"), targa));
 
         veicolo = entityManager.createQuery(queryDef).getSingleResult();
@@ -92,7 +92,7 @@ public class VeicoloDaoImpl extends AbstractDao<Veicolo, Integer> implements Vei
         // utilizzo il Root
         Root<Veicolo> recordSet = queryDef.from(Veicolo.class);
 
-        // equivalente di SELECT u FROM PRENOTAZIONE.u WHERE u.id : id ORDER BY ...
+        // equivalente di SELECT u FROM VEICOLO.u WHERE u.modello : modello ORDER BY ...
         queryDef.select(recordSet).where(cb.equal(recordSet.get("modello"), modello));
 
         listaVeicoli = entityManager.createQuery(queryDef).getResultList();
@@ -114,7 +114,7 @@ public class VeicoloDaoImpl extends AbstractDao<Veicolo, Integer> implements Vei
         // utilizzo il Root
         Root<Veicolo> recordSet = queryDef.from(Veicolo.class);
 
-        // equivalente di SELECT u FROM PRENOTAZIONE.u WHERE u.id : id ORDER BY ...
+        // equivalente di SELECT u FROM VEICOLO.u WHERE u.casaCostruttrice : casaCostruttrice ORDER BY ...
         queryDef.select(recordSet).where(cb.equal(recordSet.get("casaCostruttrice"), casaCostruttrice));
 
         listaVeicoli = entityManager.createQuery(queryDef).getResultList();
@@ -136,7 +136,7 @@ public class VeicoloDaoImpl extends AbstractDao<Veicolo, Integer> implements Vei
         // utilizzo il Root
         Root<Veicolo> recordSet = queryDef.from(Veicolo.class);
 
-        // equivalente di SELECT u FROM PRENOTAZIONE.u WHERE u.id : id ORDER BY ...
+        // equivalente di SELECT u FROM VEICOLO.u WHERE u.annoImmatricolazione : annoImmatricolazione ORDER BY ...
         queryDef.select(recordSet).where(cb.equal(recordSet.get("annoImmatricolazione"), annoImmatricolazione));
 
         listaVeicoli = entityManager.createQuery(queryDef).getResultList();
