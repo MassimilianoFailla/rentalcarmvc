@@ -54,7 +54,7 @@
                                     <td>${prenotazione.utente.nome}</td>
                                     <td>${prenotazione.utente.codiceFiscale}</td>
                                     <td>
-                                        <form action="<spring:url value="modifica"/>" method="get">
+                                        <form action="<spring:url value="aggiorna"/>" method="get">
                                             <input type="hidden" name="id" value="${prenotazione.id}">
                                             <input type="submit" value="Aggiorna">
                                         </form>
