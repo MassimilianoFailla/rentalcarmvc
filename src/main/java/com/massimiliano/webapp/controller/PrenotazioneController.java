@@ -96,37 +96,28 @@ public class PrenotazioneController {
 
     //    -------------------------------- Aggiornamento Prenotazione --------------------------------------------------
 
-    @RequestMapping(value = "/modifica/{prenotazione.id}", method = RequestMethod.GET)
-    public String modPrenotazione(ModelAndView model, @PathVariable("id") int id) {
+    //    -------------------------------- Aggiorna Utente ------------------------------------------------------------
 
-        Prenotazione prenotazione = prenotazioneService.trovaPrenotazionePerId(id);
+    @GetMapping("/aggiorna")
+    public String AggPrenotazione(Model model, @Valid @ModelAttribute("Prenotazione") Prenotazione prenotazione) {
 
-        model.addObject("Titolo", "Modifica Prenotazione");
-        model.addObject("Prenotazione", prenotazione);
-        model.addObject("edit", true);
-
-        prenotazioneService.Aggiorna(prenotazione);
+        model.addAttribute("Titolo", "Aggiornamento prenotazione con Id -> " + prenotazione.getId());
+        model.addAttribute("Prenotazione", prenotazione);
+        model.addAttribute("prenotazione.id", prenotazione.getId());
 
         return "inserisciPrenotazione";
     }
 
-    @RequestMapping(value = "/modifica/{prenotazione.id}", method = RequestMethod.POST)
-    public String GestModPrenotazione(@Valid @ModelAttribute("Prenotazione") Prenotazione prenotazione, BindingResult result,
-                                      ModelAndView model, @PathVariable("id") int id) {
+    @PostMapping("/aggiorna")
+    public String GestAggPrenotazione(@Valid @ModelAttribute("Prenotazione") Prenotazione prenotazione, BindingResult result) {
 
-        if (prenotazione.getId() != 0) {
-            if (result.hasErrors()) {
-
-                model.addObject("Titolo", "Modifica Prenotazione");
-                model.addObject("Prenotazione", prenotazioneService.trovaPrenotazionePerId(id));
-                model.addObject("edit", true);
-
-                return "inserisciPrenotazione";
-            }
-
-            prenotazioneService.Aggiorna(prenotazione);
+        if (result.hasErrors()) {
+            return "inserisciPrenotazione";
         }
-        return "redirect:/homeSuperUser";
+
+        prenotazioneService.Aggiorna(prenotazione);
+
+        return "redirect:/prenotazione/visualizzaPrenotazioni";
     }
 
     //    -------------------------------- Cancellazione Prenotazione -------------------------------------------------------

@@ -52,22 +52,22 @@ public class VeicoloController {
 
     //    -------------------------------- Registrazione Veicolo -------------------------------------------------------
 
-    @GetMapping("/registrazione")
+    @GetMapping("/registra")
     public String InsVeicolo(Model model) {
 
         Veicolo veicolo = new Veicolo();
 
-        model.addAttribute("Titolo", "Inserimento nuovo veicolo");
+        model.addAttribute("Titolo","Inserimento nuovo veicolo");
         model.addAttribute("Veicolo", veicolo);
         model.addAttribute("Veicolo", getVeicolo());
 
         return "inserisciVeicolo";
     }
 
-    @PostMapping("/registrazione")
+    @PostMapping("/registra")
     public String GestInsVeicolo(@Valid @ModelAttribute("Veicolo") Veicolo veicolo, BindingResult result) {
 
-        if (result.hasErrors()) {
+        if(result.hasErrors()){
             return "inserisciVeicolo";
         }
 
@@ -78,36 +78,26 @@ public class VeicoloController {
 
     //    -------------------------------- Aggiornamento Veicolo -------------------------------------------------------
 
-    @RequestMapping(value = "/modifica/{veicolo.id}", method = RequestMethod.GET)
-    public String modVeicolo(ModelAndView model, @PathVariable("id") int id) {
+    @GetMapping("/aggiorna")
+    public String AggVeicolo(Model model, @Valid @ModelAttribute("Veicolo") Veicolo veicolo) {
 
-        Veicolo veicolo = veicoloService.trovaById(id);
-
-        model.addObject("Titolo", "Modifica veicolo");
-        model.addObject("Veicolo", getVeicolo());
-        model.addObject("edit", true);
-
-        veicoloService.Aggiorna(veicolo);
+        model.addAttribute("Titolo", "Aggiornamento veicolo con Id -> " +veicolo.getId());
+        model.addAttribute("Veicolo", veicolo);
+        model.addAttribute("veicolo.id", veicolo.getId());
 
         return "inserisciVeicolo";
     }
 
-    @RequestMapping(value = "/modifica/{veicolo.id}", method = RequestMethod.POST)
-    public String GestModVeicolo(@Valid @ModelAttribute("Veicolo") Veicolo veicolo, BindingResult result,
-                                 ModelAndView model) {
+    @PostMapping("/aggiorna")
+    public String GestAggUtente(@Valid @ModelAttribute("Veicolo") Veicolo veicolo, BindingResult result) {
 
-        if (veicolo.getId() != 0) {
-            if (result.hasErrors()) {
-
-                model.addObject("Titolo", "Modifica Veicolo");
-                model.addObject("edit", true);
-
-                return "inserisciVeicolo";
-            }
-
-            veicoloService.Aggiorna(veicolo);
+        if (result.hasErrors()) {
+            return "inserisciVeicolo";
         }
-        return "redirect:/homeSuperUser";
+
+        veicoloService.Aggiorna(veicolo);
+
+        return "redirect:/veicolo/visualizzaVeicoli";
     }
 
     //    -------------------------------- Cancellazione Veicolo -------------------------------------------------------

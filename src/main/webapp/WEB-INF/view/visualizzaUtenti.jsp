@@ -23,6 +23,7 @@
 
                 <!-- Lista Utenti -->
                 <div class="tab-pane fade show active" id="dati" role="tabpanel" aria-labelledby="dati-tab">
+                    <%--@elvariable id="listaUtenti" type=""--%>
                     <form:form method="GET" modelAttribute="listaUtenti">
                         <table class="table table-striped" style="margin-left:auto;margin-right:auto;">
                             <thead class="thead-dark">
@@ -54,7 +55,8 @@
                                     <td>${utente.role}</td>
 
                                     <td>
-                                        <form action="<spring:url value="modifica/{utente.id}"/>" method="GET">
+                                        <%--<form action="<spring:url value="modifica"/>" method="GET">--%>
+                                        <form action="<spring:url value="aggiorna"/>" method="GET">
                                             <input type="hidden" name="id" value="${utente.id}">
                                             <input type="submit" value="Modifica">
                                         </form>

@@ -19,8 +19,10 @@
         </div>
         <div class="portlet-body form">
             <div class="tab-content" id="myTabContent">
+
                 <!-- Lista Veicoli -->
                 <div class="tab-pane fade show active" id="dati" role="tabpanel" aria-labelledby="dati-tab">
+                    <%--@elvariable id="listaVeicoli" type=""--%>
                     <form:form method="GET" modelAttribute="listaVeicoli">
                         <table class="table table-striped" style="margin-left:auto;margin-right:auto;">
                             <thead class="thead-dark">
@@ -43,7 +45,7 @@
                                     <td>${mezzo.annoImmatricolazione}</td>
                                     <td>${mezzo.targa}</td>
                                     <td>
-                                        <form action="<spring:url value="modifica/{veicolo.id}"/>" method="get">
+                                        <form action="<spring:url value="aggiorna"/>" method="GET">
                                             <input type="hidden" name="id" value="${mezzo.id}">
                                             <input type="submit" value="Aggiorna">
                                         </form>

@@ -70,13 +70,12 @@
 
                         <hr class="line-form">
 
-                        <jsp:useBean id="mezzo" scope="request" type="com.sun.org.apache.xml.internal.security.signature.SignatureProperty"/>
-                        <c:if test="${mezzo.id ne null}">
+                        <c:if test="${veicolo.id ne null}">
                             <tr>
                                 <td colspan="2"><input type="submit" value="Aggiorna"></td>
                             </tr>
                         </c:if>
-                        <c:if test="${mezzo.id eq null}">
+                        <c:if test="${veicolo.id eq null}">
                             <tr>
                                 <td colspan="2"><input type="submit" value="Salva"></td>
                             </tr>

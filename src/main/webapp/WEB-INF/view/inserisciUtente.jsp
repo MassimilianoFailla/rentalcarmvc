@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2>${Titolo}</h2>
+                <h3>${Titolo}</h3>
                 <p>${Titolo2}</p>
             </div>
         </div>
@@ -21,11 +21,12 @@
         <div class="portlet-body form">
             <div class="tab-content" id="myTabContent">
 
+
                 <!-- Form Dati Cliente -->
                 <div class="tab-pane fade show active" id="dati" role="tabpanel" aria-labelledby="dati-tab">
+                    <%--@elvariable id="Utente" type=""--%>
                     <form:form method="POST" modelAttribute="Utente">
-                    <div class="form-body">
-                        <div class="form-row">
+                        <div class="form-body">
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -86,10 +87,9 @@
 
                         <hr class="line-form">
 
-                        <jsp:useBean id="utente" scope="request" type="com.sun.org.apache.xml.internal.security.signature.SignatureProperty"/>
                         <c:if test="${utente.id ne null}">
                             <tr>
-                                <td colspan="2"><input type="submit" value="Modifica"></td>
+                                <td colspan="2"><input type="submit" value="Aggiorna"></td>
                             </tr>
                         </c:if>
                         <c:if test="${utente.id eq null}">
@@ -98,8 +98,7 @@
                             </tr>
                         </c:if>
 
-                        </form:form>
-                    </div>
+                    </form:form>
                 </div>
             </div>
         </div>

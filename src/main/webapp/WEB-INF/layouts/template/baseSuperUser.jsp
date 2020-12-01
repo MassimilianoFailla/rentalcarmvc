@@ -31,7 +31,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 
-        <a class="navbar-brand" href="<spring:url value="/webstore/lastart"/>">Rental Car - Super User</a>
+        <a class="navbar-brand" href="<spring:url value="/homeSuperUser"/>">Rental Car - Super User</a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
                 <a class="nav-link" href="<spring:url value="/homeSuperUser" /> ">
@@ -58,6 +58,14 @@
                     Gestisci Utenti
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<spring:url value="/veicolo/registra" /> ">
+                    <span class="oi oi-credit-card" title="utente" aria-hidden="true"></span>
+                    Registra un nuovo Veicolo
+                </a>
+            </li>
+
         </ul>
     </div>
 </nav>

@@ -2,6 +2,7 @@ package com.massimiliano.webapp.controller;
 
 import com.massimiliano.webapp.entities.Utente;
 import com.massimiliano.webapp.service.UtenteService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,10 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import javax.validation.Valid;
 import java.util.List;
 
-// gestione degli utenti
+// questa sarà la classe di gestione dell'utente, dove potremo effettuare tutte le operazioni
+// che riguardano i vari utenti
+
 
 @Controller
 @RequestMapping("/utente")
@@ -21,14 +25,11 @@ public class UtenteController {
     @Autowired
     private UtenteService utenteService;
 
-    //    -------------------------------- Get Utente ------------------------------------------------------------------
 
     @ModelAttribute("Utente")
     public Utente getUtente() {
         return new Utente();
     }
-
-    //    --------------------------------  Get Lista Utenti -----------------------------------------------------------
 
     private List<Utente> getListaUtenti() {
 
@@ -36,8 +37,6 @@ public class UtenteController {
 
         return listaUtenti;
     }
-
-    //    -------------------------------- Visualizza Lista Utente Nella Pagina Principale  ----------------------------
 
     @GetMapping("/visualizzaUtenti")
     public ModelAndView visUtenti(ModelAndView model) {
@@ -50,7 +49,6 @@ public class UtenteController {
         return model;
     }
 
-    //    -------------------------------- Registrazione Utente --------------------------------------------------------
 
     @GetMapping("/registrazione")
     public String InsUtente(Model model) {
@@ -74,78 +72,34 @@ public class UtenteController {
 
         utenteService.Salva(utente);
 
-        return "redirect:/homeSuperUser";
+        return "redirect:/home";
     }
 
-    //    -------------------------------- Modifica Utente --------------------------------------------------------
+    //    -------------------------------- Aggiorna Utente ------------------------------------------------------------
 
+    @GetMapping("/aggiorna")
+    public String AggUtente(Model model, @Valid @ModelAttribute("Utente") Utente utente) {
 
-    @RequestMapping(value = "/modifica/{utente.id}", method = RequestMethod.GET)
-    public String modUtente(@PathVariable("id") int idUtente, ModelAndView model) {
+        model.addAttribute("Titolo", "Aggiornamento utente con Id -> " +utente.getId());
+        model.addAttribute("Utente", utente);
+        model.addAttribute("utente.id", utente.getId());
 
-        Utente utente = utenteService.selezionaById(idUtente);
+        return "inserisciUtente";
+    }
 
-        model.addObject("Titolo", "Modifica Utente");
-        model.addObject("Utente", getUtente());
-        model.addObject("edit", true);
+    @PostMapping("/aggiorna")
+    public String GestAggUtente(@Valid @ModelAttribute("Utente") Utente utente, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "inserisciUtente";
+        }
 
         utenteService.Aggiorna(utente);
 
         return "redirect:/homeSuperUser";
     }
 
-    @RequestMapping(value = "/modifica/{utente.id}", method = RequestMethod.POST)
-    public String GestModUtente(@Valid @ModelAttribute("Utente") Utente utente, BindingResult result,
-                                ModelAndView model) {
-
-        if (utente.getId() != 0) {
-            if (result.hasErrors()) {
-
-                model.addObject("Titolo", "Modifica Utente");
-                model.addObject("edit", true);
-
-                return "redirect:/homeSuperUser";
-            }
-            utenteService.Aggiorna(utente);
-        }
-        return "redirect:/homeSuperUser";
-    }
-
-
-//    @RequestMapping(value = "/modifica/{utente.id}", method = RequestMethod.GET)
-//    public String modUtente(ModelAndView model, @PathVariable("id") int idUtente){
-//
-//        Utente utente = utenteService.selezionaById(idUtente);
-//
-//        model.addObject("Titolo", "Modifica utente");
-//        model.addObject("Utente", utente);
-//        model.addObject("edit", true);
-//
-//        utenteService.Aggiorna(utente);
-//
-//        return "inserisciUtente";
-//     }
-//
-//     @RequestMapping(value = "/modifica/{utente.id}", method = RequestMethod.POST)
-//    public String GestModUtente(@Valid @ModelAttribute("Utente") Utente utente, BindingResult result,
-//                                ModelAndView model, @PathVariable("id") int idUtente){
-//
-//        if(utente.getId() != 0) {
-//            if (result.hasErrors()) {
-//
-//                model.addObject("Titolo", "Modifica Utente");
-//                model.addObject("Utente", utenteService.selezionaById(idUtente));
-//                model.addObject("edit", true);
-//
-//                return "inserisciUtente";
-//            }
-//
-//            utenteService.Aggiorna(utente);
-//        }
-//         return "redirect:/homeSuperUser";
-//    }
-
-    //    -------------------------------- Cancellazione Utente --------------------------------------------------------
+    //-------------------------------- Cancellazione Utente --------------------------------------------------------
 
     @RequestMapping(value = "/elimina", method = RequestMethod.GET)
     public String eliUtente(@PathVariable("id") int idUtente, ModelAndView model) {

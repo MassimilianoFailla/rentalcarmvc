@@ -30,7 +30,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <jsp:useBean id="listaUtenti" scope="request" type="java.util.List"/>
                         <c:forEach items="${listaUtenti}" var="utente">
                             <tr>
                                 <td>${utente.id}</td>
@@ -44,13 +43,12 @@
                                 <td>${utente.role}</td>
                             </tr>
                         </c:forEach>
+                        <br>
+                        <br>
+                        <br>
                         </tbody>
                     </table>
                 </form:form>
-                <br>
-                <br>
-                <br>
-                <br>
                 <p>${saluti}</p>
             </div>
         </div>

@@ -21,7 +21,7 @@ public class Veicolo implements Serializable {
     private String modello;
 
     @Column(name = "annoImmatricolazione")
-    private Date annoImmatricolazione;
+    private String annoImmatricolazione;
 
     @Column(name = "targa", unique = true)
     public String targa;
@@ -40,7 +40,7 @@ public class Veicolo implements Serializable {
 
     }
 
-    public Veicolo(String casaCostruttrice, String modello, Date annoImmatricolazione, String targa, String tipologia) {
+    public Veicolo(String casaCostruttrice, String modello, String annoImmatricolazione, String targa, String tipologia) {
         this.casaCostruttrice = casaCostruttrice;
         this.modello = modello;
         this.annoImmatricolazione = annoImmatricolazione;
@@ -77,12 +77,12 @@ public class Veicolo implements Serializable {
         this.modello = modello;
     }
 
-    public Date getAnnoImmatricolazione() {
+    public String getAnnoImmatricolazione() {
 
         return annoImmatricolazione;
     }
 
-    public void setAnnoImmatricolazione(Date annoImmatricolazione) {
+    public void setAnnoImmatricolazione(String annoImmatricolazione) {
         this.annoImmatricolazione = annoImmatricolazione;
     }
 

@@ -150,7 +150,7 @@ public class Utente implements Serializable {
     }
 
     public String toString() {
-        return "Utente -> Nome: " + nome + " - Cognome: " + cognome + " - Data Nascita: " + dataNascita + " - Codice Fiscale: "
+        return "Utente -> Id: "+id+" - Nome: " + nome + " - Cognome: " + cognome + " - Data Nascita: " + dataNascita + " - Codice Fiscale: "
                 + codiceFiscale + " - Email: " + email + " - Username: " + username
                 + " - Password: " + password + " - Tipologia Account: " + role + ";";
     }

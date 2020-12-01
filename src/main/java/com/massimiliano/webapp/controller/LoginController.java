@@ -49,7 +49,7 @@ public class LoginController {
             return authenticate(request, utente);
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/errorlogin.jsp";
+            return "errorlogin.jsp";
         }
 
     }
